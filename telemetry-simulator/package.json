@@ -1,0 +1,19 @@
+{
+  "name": "telemetry-simulator",
+  "version": "1.0.0",
+  "description": "Autonomous Fleet Telemetry Simulator for GridDispatch",
+  "main": "dist/simulator.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/simulator.js",
+    "dev": "ts-node src/simulator.ts"
+  },
+  "dependencies": {
+    "axios": "^1.7.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  }
+}

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agentguard-backend
+  namespace: future-platforms
+  labels:
+    app: agentguard-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: agentguard-backend
+  template:
+    metadata:
+      labels:
+        app: agentguard-backend
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/actuator/prometheus"
+        prometheus.io/port: "8081"
+    spec:
+      containers:
+        - name: agentguard-backend
+          image: future-java-platforms/agentguard-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+          envFrom:
+            - configMapRef:
+                name: platform-config
+            - secretRef:
+                name: platform-secrets
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              cpu: "2000m"
+              memory: "2048Mi"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8081
+            initialDelaySeconds: 25
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8081
+            initialDelaySeconds: 15
+            periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agentguard-backend
+  namespace: future-platforms
+spec:
+  type: ClusterIP
+  selector:
+    app: agentguard-backend
+  ports:
+    - port: 8081
+      targetPort: 8081
+      name: http

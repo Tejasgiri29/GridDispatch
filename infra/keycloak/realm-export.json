@@ -1,0 +1,40 @@
+{
+  "id": "future-platforms",
+  "realm": "future-platforms",
+  "displayName": "Future Java Platforms OIDC Realm",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": true,
+  "roles": {
+    "realm": [
+      { "name": "ADMIN", "description": "Platform Super Administrator" },
+      { "name": "OPERATOR", "description": "Operations & Dispatch Manager" },
+      { "name": "USER", "description": "Standard Human User" },
+      { "name": "AGENT", "description": "Autonomous AI Agent Principal" },
+      { "name": "FLEET_MANAGER", "description": "GridDispatch Fleet Specialist" },
+      { "name": "AUDITOR", "description": "Financial & Compliance Auditor" }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "agentguard-client",
+      "name": "AgentGuard API Client",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "agentguard_client_secret",
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "serviceAccountsEnabled": true
+    },
+    {
+      "clientId": "griddispatch-client",
+      "name": "GridDispatch API Client",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "griddispatch_client_secret",
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "serviceAccountsEnabled": true
+    }
+  ]
+}

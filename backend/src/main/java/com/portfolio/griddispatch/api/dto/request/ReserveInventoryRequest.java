@@ -1,0 +1,13 @@
+package com.portfolio.griddispatch.api.dto.request;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record ReserveInventoryRequest(
+    @NotBlank String orderId,
+    @NotBlank String warehouseId,
+    @NotBlank String productId,
+    @NotNull @Min(1) int quantity,
+    @NotNull @Min(1) int ttlMinutes
+) {}
